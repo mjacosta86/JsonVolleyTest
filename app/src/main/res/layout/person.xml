@@ -19,10 +19,11 @@
             android:src="@mipmap/ic_launcher"/> -->
 
         <com.android.volley.toolbox.NetworkImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/ivFoto"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             android:id="@+id/tvName"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
             android:textSize="25dp" />
 
     </LinearLayout>
