@@ -32,8 +32,8 @@ public class FragmentTeamList extends Fragment {
     RecyclerView rvList;
     private static final String TAG = "PersonListFragment";
     TeamList list;
-    ImageView ivIconToolbar;
-    TextView tvTitleToolbar;
+    //ImageView ivIconToolbar;
+    //TextView tvTitleToolbar;
 
 
     public static FragmentTeamList newInstance(TeamList list) {
@@ -53,8 +53,8 @@ public class FragmentTeamList extends Fragment {
 
         if(rootView != null) {
             rvList = (RecyclerView) rootView.findViewById(R.id.rvList);
-            ivIconToolbar = (ImageView) rootView.findViewById(R.id.ivIconToolbar);
-            tvTitleToolbar = (TextView) rootView.findViewById(R.id.tvTitleToolbar);
+            //ivIconToolbar = (ImageView) rootView.findViewById(R.id.ivIconToolbar);
+            //tvTitleToolbar = (TextView) rootView.findViewById(R.id.tvTitleToolbar);
         }
         return rootView;
 
@@ -88,12 +88,12 @@ public class FragmentTeamList extends Fragment {
             }
         });
 
-        ivIconToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
-            }
-        });
+//        ivIconToolbar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+//            }
+//        });
 
 
 

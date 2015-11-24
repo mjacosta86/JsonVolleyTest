@@ -6,6 +6,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import com.google.gson.Gson;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
 import com.macostay.jsonvolleytest.fragments.FragmentPersonList;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
+import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
 import com.macostay.jsonvolleytest.models.Person;
 import com.macostay.jsonvolleytest.models.PersonList;
 import com.macostay.jsonvolleytest.models.PersonSerialized;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     //http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=&req=teams&key=9fb0641102eeb3cd7d7db99606624a08&league=107&year=2014&group=playoff
     //ArrayList<Person> items;
     ArrayList<Teams> items;
+    TeamList list;
 
 
 
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
 
         if(Conexion() == true){
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentLoading.newInstance()).commit();
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                             items = parseJson(response);
                             //PersonList list = new PersonList(items);
-                            TeamList list = new TeamList(items);
+                            list = new TeamList(items);
                             //getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentPersonList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
                             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentTeamList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
                         }
@@ -219,7 +226,12 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.show_all_items) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+            return true;
+        }
+        else if(id == R.id.action_settings)
+        {
             return true;
         }
 
