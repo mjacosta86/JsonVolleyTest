@@ -22,21 +22,11 @@ public class FragmentPlaceholder extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_PERSON = "person";
     Teams teams;
-//    Person person;
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-
-
-//    public static FragmentPlaceholder newInstance(Person person) {
-//        FragmentPlaceholder fragment = new FragmentPlaceholder();
-//        Bundle args = new Bundle();
-//        args.putParcelable(ARG_PERSON, person);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     public static FragmentPlaceholder newInstance(Teams teams) {
         FragmentPlaceholder fragment = new FragmentPlaceholder();

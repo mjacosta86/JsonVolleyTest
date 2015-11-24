@@ -4,31 +4,28 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import android.support.v4.view.GravityCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
-import com.macostay.jsonvolleytest.fragments.FragmentPersonList;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
 import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
-import com.macostay.jsonvolleytest.models.Person;
-import com.macostay.jsonvolleytest.models.PersonList;
-import com.macostay.jsonvolleytest.models.PersonSerialized;
 import com.macostay.jsonvolleytest.models.TeamList;
 import com.macostay.jsonvolleytest.models.Teams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,19 +34,13 @@ import java.util.ArrayList;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
 
     private static final String TAG = "MainActivity";
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     private static final String URL = "http://www.json-generator.com/api/json/get/bQReIxvKGa?indent=2";
-    //http://www.json-generator.com/api/json/get/cdzINsfyYy?indent=2 escudos
-    //http://www.json-generator.com/api/json/get/cePSSbCklK?indent=2
-    //http://www.json-generator.com/api/json/get/ciZuOHcvGW?indent=2 ultima con equipos
-//    http://www.json-generator.com/api/json/get/bQReIxvKGa?indent=2 definitivo
-    //http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=&req=teams&key=9fb0641102eeb3cd7d7db99606624a08&league=107&year=2014&group=playoff
-    //ArrayList<Person> items;
     ArrayList<Teams> items;
     TeamList list;
 
@@ -62,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
 
         if(Conexion() == true){
@@ -83,9 +83,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
 
                             items = parseJson(response);
-                            //PersonList list = new PersonList(items);
                             list = new TeamList(items);
-                            //getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentPersonList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
                             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentTeamList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
                         }
                     },
@@ -98,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     }
             );
 
-            JsonVolleyTestSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrayRequest);
+            JsonVolleyTestSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrayRequest);//Añadimos la petición a la cola
 
         } else {
             Toast.makeText(getApplicationContext(), "No hay conexión", Toast.LENGTH_LONG).show();
@@ -108,6 +106,32 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+            getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentTeamList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+        } else if (id == R.id.nav_gallery) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
     public boolean Conexion(){
         //Recogemos el servicio ConnectivityManager el cual se encarga de todas las conexiones del terminal
@@ -135,46 +159,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-//    public ArrayList<Person> parseJson(JSONObject jsonObject){
-//        // Variables locales
-//        ArrayList<Person> posts = new ArrayList<>();
-//        JSONArray jsonArray;
-//
-//        try {
-//            // Obtener el array del objeto
-//            jsonArray = jsonObject.getJSONArray("items");
-//
-//            for(int i=0; i<jsonArray.length(); i++){
-//
-//                try {
-//                    JSONObject objeto= jsonArray.getJSONObject(i);
-//
-//
-//                    Person person = new Person(
-//                            objeto.getInt("index"),
-//                            objeto.getString("name"),
-//                            objeto.getInt("age"),
-//                            objeto.getString("address"),
-//                            objeto.getString("email"),
-//                            objeto.getString("phone"),
-//                            objeto.getString("image"));
-//
-//
-//                    posts.add(person);
-//
-//                } catch (JSONException e) {
-//                    Log.e(TAG, "Error de parsing: "+ e.getMessage());
-//                }
-//            }
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//
 
-//        return posts;
-//    }
     public ArrayList<Teams> parseJson(JSONObject jsonObject){
         // Variables locales
         ArrayList<Teams> posts = new ArrayList<>();
@@ -230,17 +215,17 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
             return true;
         }
-        else if(id == R.id.action_settings)
-        {
-            return true;
-        }
+//        else if(id == R.id.action_settings)
+//        {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d("destroy", "destroy");
+        //Log.d("destroy", "destroy");
 
         //gateway.getQueue().getCache().clear();
     }

@@ -33,7 +33,6 @@ public class FragmentPersonList extends Fragment {
     RecyclerView rvList;
     private static final String TAG = "PersonListFragment";
     TeamList list;
-    //PersonList list;
     ImageView ivIconToolbar;
     TextView tvTitleToolbar;
 
@@ -68,13 +67,8 @@ public class FragmentPersonList extends Fragment {
         getActivity().setTitle("Lista de Personas");
 
         final ArrayList<Teams> items = list.getList();
-        //final ArrayList<Person> items = list.getList();
-
-//      Context c = getActivity().getApplicationContext();
 
         AdapterRecyclerTeams adapterRecyclerContracts = new AdapterRecyclerTeams(items);
-//        AdapterRecyclerPerson adapterRecyclerContracts = new AdapterRecyclerPerson(items);
-//      AdapterRecyclerPerson adapterRecyclerContracts = new AdapterRecyclerPerson(items, c);
 
         rvList.setAdapter(adapterRecyclerContracts);
 

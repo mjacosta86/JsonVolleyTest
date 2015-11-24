@@ -17,9 +17,7 @@ import com.macostay.jsonvolleytest.models.Teams;
  */
 public class FragmentDetails extends Fragment{
 
-    //Person person;
     Teams teams;
-    //TextView tvDetailsIndex, tvDetailsName, tvDetailsAge, tvDetailsAddress, tvDetailsPhone, tvDetailsEmail;
     TextView tvDetails;
     public static FragmentDetails newInstance(Teams t) {
 
@@ -29,20 +27,11 @@ public class FragmentDetails extends Fragment{
         fragment.setArguments(args);
         return fragment;
     }
-//    public static FragmentDetails newInstance(Person p) {
-//
-//        Bundle args = new Bundle();
-//        args.putParcelable("person", p);
-//        FragmentDetails fragment = new FragmentDetails();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
-//        person = getArguments().getParcelable("person");
         teams = getArguments().getParcelable("teams");
 
         if(rootView != null) {
@@ -59,14 +48,6 @@ public class FragmentDetails extends Fragment{
         tvDetails.setText("Name: "+ teams.getName()+"\n"+
                 "Grupo: "+ teams.getGroupCode()+"\n"+
                 "Image: "+ teams.getImage());
-
-
-//        tvDetails.setText("Name: "+ person.getName()+"\n"+
-//                "Age: "+ person.getAge()+"\n"+
-//                "Phone: "+ person.getPhone()+"\n"+
-//                "Address: "+ person.getAddress()+"\n"+
-//                "Email: "+ person.getEmail());
-
 
 
     }

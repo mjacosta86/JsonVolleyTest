@@ -18,21 +18,11 @@ import com.macostay.jsonvolleytest.models.TeamList;
  */
 public class FragmentViewPager extends Fragment{
 
-    //PersonList list;
     TeamList list;
     ViewPager vpPager;
     TabLayout tabLayout;
     private AdapterSectionsPager mSectionsPagerAdapter;
 
-
-//    public static FragmentViewPager newInstance(PersonList list) {
-//
-//        Bundle args = new Bundle();
-//        args.putParcelable("list", list);
-//        FragmentViewPager fragment = new FragmentViewPager();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     public static FragmentViewPager newInstance(TeamList list) {
 
