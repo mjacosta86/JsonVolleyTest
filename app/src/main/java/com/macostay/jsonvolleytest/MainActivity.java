@@ -26,6 +26,8 @@ import com.macostay.jsonvolleytest.fragments.FragmentListTest;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
 import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
+import com.macostay.jsonvolleytest.models.Player;
+import com.macostay.jsonvolleytest.models.PlayerList;
 import com.macostay.jsonvolleytest.models.TeamList;
 import com.macostay.jsonvolleytest.models.Teams;
 import org.json.JSONArray;
@@ -42,11 +44,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "MainActivity";
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
-    private static final String URL = "http://www.json-generator.com/api/json/get/bPVuKgHlQi?indent=2";
+    private static final String URL = "http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2";
     ArrayList<Teams> items;
     TeamList list;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -176,17 +176,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             for(int i=0; i<jsonArray.length(); i++){
 
                 try {
-                    JSONObject objeto= jsonArray.getJSONObject(i);
+                    JSONObject objeto = jsonArray.getJSONObject(i);
+///////////////////////////Modo Corto///////////////////////////////////////////////////////////////////
                     String json = objeto.toString();
                     Gson gson = new Gson();
                     Teams team = gson.fromJson(json, Teams.class);
 
-                    /*Teams team = new Teams(
-                            objeto.getString("id"),
-                            objeto.getString("name"),
-                            objeto.getString("groupCode"),
-                            objeto.getString("image"));*/
-
+////////////////////////////Modo Largo//////////////////////////////////////////////////////////////////
+//                    Teams team = new Teams(
+//                            objeto.getString("id"),
+//                            objeto.getString("name"),
+//                            objeto.getInt("groupCode"),
+//                            objeto.getString("image")
+//                            );
+//
+//                    JSONObject objectPlayer = objeto.getJSONObject("players");
+//                    JSONArray arrayPlayer = objectPlayer.getJSONArray("list");
+//                    ArrayList<Player> listPlayer = new ArrayList<Player>();
+//
+//                    for(int j = 0; j < arrayPlayer.length(); ++j)
+//                    {
+//                        JSONObject object = arrayPlayer.getJSONObject(j);
+//
+//                        Player player = new Player(
+//                                object.getInt("index"),
+//                                object.getString("name"),
+//                                object.getInt("dorsal"),
+//                                object.getInt("age"),
+//                                object.getString("position"),
+//                                object.getString("info"));
+//                        listPlayer.add(player);
+//                    }
+//
+//                    team.setPlayers(listPlayer);
 
                     posts.add(team);
 
@@ -221,10 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
             return true;
         }
-//        else if(id == R.id.action_settings)
-//        {
-//            return true;
-//        }
+
 
         return super.onOptionsItemSelected(item);
     }

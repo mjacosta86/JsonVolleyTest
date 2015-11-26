@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.macostay.jsonvolleytest.R;
-import com.macostay.jsonvolleytest.models.Person;
 import com.macostay.jsonvolleytest.models.Teams;
 
 /**

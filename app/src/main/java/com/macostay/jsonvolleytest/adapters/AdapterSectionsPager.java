@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.macostay.jsonvolleytest.fragments.FragmentPlaceholder;
-import com.macostay.jsonvolleytest.models.PersonList;
 import com.macostay.jsonvolleytest.models.TeamList;
 
 /**

@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.macostay.jsonvolleytest.R;
-import com.macostay.jsonvolleytest.models.Person;
 import com.macostay.jsonvolleytest.models.Teams;
 
 /**
@@ -47,7 +46,8 @@ public class FragmentDetails extends Fragment{
 
         tvDetails.setText("Name: "+ teams.getName()+"\n"+
                 "Grupo: "+ teams.getGroupCode()+"\n"+
-                "Image: "+ teams.getImage());
+                "Image: "+ teams.getImage()
+                +"\n"+"Player: "+ teams.getPlayers().getList().get(0).getInfo());
 
 
     }

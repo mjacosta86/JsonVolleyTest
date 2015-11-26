@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.macostay.jsonvolleytest.R;
-import com.macostay.jsonvolleytest.models.Person;
 
 public class FragmentScreenSlidePage extends Fragment {
 

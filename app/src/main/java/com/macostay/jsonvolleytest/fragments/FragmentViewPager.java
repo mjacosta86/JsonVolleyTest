@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.macostay.jsonvolleytest.R;
 import com.macostay.jsonvolleytest.adapters.AdapterSectionsPager;
-import com.macostay.jsonvolleytest.models.PersonList;
 import com.macostay.jsonvolleytest.models.TeamList;
 
 /**
