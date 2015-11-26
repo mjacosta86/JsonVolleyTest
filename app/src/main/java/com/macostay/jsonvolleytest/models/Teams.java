@@ -16,10 +16,10 @@ public class Teams implements Parcelable {
     public Teams() {
     }
 
-    public Teams(String id, String name, String group_code, String image) {
+    public Teams(String id, String name, String groupCode, String image) {
         this.id = id;
         this.name = name;
-        this.groupCode = group_code;
+        this.groupCode = groupCode;
         this.image = image;
     }
 

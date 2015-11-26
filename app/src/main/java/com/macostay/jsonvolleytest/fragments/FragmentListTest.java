@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.macostay.jsonvolleytest.R;
 import com.macostay.jsonvolleytest.adapters.AdapterRecyclerTeams;
 import com.macostay.jsonvolleytest.models.TeamList;
@@ -21,25 +22,25 @@ import java.util.ArrayList;
 /**
  * Created by macostay on 15/10/2015.
  */
-public class FragmentTeamList extends Fragment {
+public class FragmentListTest extends Fragment {
 
     RecyclerView rvList;
     private static final String TAG = "PersonListFragment";
     TeamList list;
 
 
-    public static FragmentTeamList newInstance(TeamList list) {
+    public static FragmentListTest newInstance(TeamList list) {
 
         Bundle args = new Bundle();
         args.putParcelable("list", list);
-        FragmentTeamList fragment = new FragmentTeamList();
+        FragmentListTest fragment = new FragmentListTest();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_team, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_test, container, false);
 
         list = getArguments().getParcelable("list");
 

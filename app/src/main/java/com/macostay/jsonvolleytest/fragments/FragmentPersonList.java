@@ -1,8 +1,6 @@
 package com.macostay.jsonvolleytest.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.macostay.jsonvolleytest.R;
-import com.macostay.jsonvolleytest.adapters.AdapterRecyclerPerson;
 import com.macostay.jsonvolleytest.adapters.AdapterRecyclerTeams;
-import com.macostay.jsonvolleytest.models.Person;
 import com.macostay.jsonvolleytest.models.PersonList;
 import com.macostay.jsonvolleytest.models.TeamList;
 import com.macostay.jsonvolleytest.models.Teams;
@@ -48,7 +44,7 @@ public class FragmentPersonList extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_person, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_team, container, false);
 
         list = getArguments().getParcelable("list");
 

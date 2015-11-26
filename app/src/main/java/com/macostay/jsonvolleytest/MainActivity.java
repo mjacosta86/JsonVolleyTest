@@ -21,6 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.macostay.jsonvolleytest.fragments.FragmentListTest;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
 import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "MainActivity";
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
-    private static final String URL = "http://www.json-generator.com/api/json/get/bQReIxvKGa?indent=2";
+    private static final String URL = "http://www.json-generator.com/api/json/get/bPVuKgHlQi?indent=2";
     ArrayList<Teams> items;
     TeamList list;
 
@@ -123,10 +125,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentTeamList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
         } else if (id == R.id.nav_gallery) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+        } else if (id == R.id.test){
+            getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentListTest.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -165,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ArrayList<Teams> posts = new ArrayList<>();
         JSONArray jsonArray;
 
+
         try {
             // Obtener el array del objeto
             jsonArray = jsonObject.getJSONArray("items");
@@ -173,13 +177,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 try {
                     JSONObject objeto= jsonArray.getJSONObject(i);
+                    String json = objeto.toString();
+                    Gson gson = new Gson();
+                    Teams team = gson.fromJson(json, Teams.class);
 
-
-                    Teams team = new Teams(
+                    /*Teams team = new Teams(
                             objeto.getString("id"),
                             objeto.getString("name"),
-                            objeto.getString("group_code"),
-                            objeto.getString("image"));
+                            objeto.getString("groupCode"),
+                            objeto.getString("image"));*/
 
 
                     posts.add(team);
