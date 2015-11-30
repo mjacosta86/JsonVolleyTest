@@ -1,11 +1,15 @@
 package com.macostay.jsonvolleytest.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +23,28 @@ import com.macostay.jsonvolleytest.models.Teams;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by macostay on 15/10/2015.
  */
 public class FragmentListTest extends Fragment {
 
-    RecyclerView rvList;
-    private static final String TAG = "PersonListFragment";
+
+    private static final String TAG = "FragmentListTest";
     TeamList list;
+
+    //Controles
+    @Bind(R.id.rvList)
+    RecyclerView rvList;
+
 
 
     public static FragmentListTest newInstance(TeamList list) {
 
         Bundle args = new Bundle();
+        Log.i(TAG, "Method newInstance");
         args.putParcelable("list", list);
         FragmentListTest fragment = new FragmentListTest();
         fragment.setArguments(args);
@@ -40,20 +53,21 @@ public class FragmentListTest extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "Method onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_test, container, false);
-
+        ButterKnife.bind(this, rootView);
         list = getArguments().getParcelable("list");
 
-        if(rootView != null) {
-            rvList = (RecyclerView) rootView.findViewById(R.id.rvList);
-        }
+//        if(rootView != null) {
+//            rvList = (RecyclerView) rootView.findViewById(R.id.rvList);
+//        }
         return rootView;
 
     }
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.i(TAG, "Method onViewCreated");
         getActivity().setTitle("Lista de Equipos");
 
         final ArrayList<Teams> items = list.getList();
@@ -76,5 +90,52 @@ public class FragmentListTest extends Fragment {
             }
         });
 
+    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i(TAG, "Method onAttach");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i(TAG, "Method onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "Method onResume");
+    }
+
+    @Override
+    public void onPause() {
+        Log.i(TAG, "Method onPause");
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        Log.i(TAG, "Method onStop");
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(TAG, "Method onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDestroyView() {
+        Log.i(TAG, "Method onDestroyView");
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDetach() {
+        Log.i(TAG, "Method onDetach");
+        super.onDetach();
     }
 }

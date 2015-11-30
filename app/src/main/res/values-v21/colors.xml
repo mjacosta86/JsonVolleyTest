@@ -7,8 +7,7 @@
     <color name="colorGreen">#00FF00</color>
     <color name="colorRed">#FF0000</color>
     <color name="tsbBackgroundButtons">#E0F3FD</color>
-    <color name="colorEmpty">#FAFAFA</color>
-    <!--<color name="colorEmpty2">#EEEEEE</color>-->
+    <color name="colorEmpty">#EEEEEE</color>
     <!--<color name="colorEmpty3">#FAFAFA</color>-->
     <!--<color name="colorPrimary">#088A08</color>-->
 </resources>

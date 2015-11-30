@@ -36,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -48,21 +50,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ArrayList<Teams> items;
     TeamList list;
 
+    //Controles
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        Log.i(TAG,"Method onCreate");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Toolbar toolbar  = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
@@ -109,9 +122,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+    protected void onStart(){
+        super.onStart();
+        Log.i(TAG, "Method onStart");
+    }
+    protected void onResume(){
+        super.onResume();
+        Log.i(TAG, "Method onResume");
+    }
+    protected void onStop(){
+        super.onStop();
+        Log.i(TAG, "Method onStop");
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "Method onDestroy");
+
+        //gateway.getQueue().getCache().clear();
+    }
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -132,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentListTest.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -141,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ConnectivityManager conMan = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         //Recogemos el estado del 3G como vemos se recoge con el parámetro 0
         NetworkInfo.State internet_movil = conMan.getNetworkInfo(0).getState();
+//        boolean mobile = conMan.getActiveNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
         //Recogemos el estado del wifi En este caso se recoge con el parámetro 1
         NetworkInfo.State wifi = conMan.getNetworkInfo(1).getState();
         //Miramos si el internet 3G está conectado o conectandose...
@@ -148,17 +181,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ///////////////
             //El movil está conectado por 3G
             //En este ejemplo mostraríamos mensaje por pantalla
-            //Toast.makeText(getApplicationContext(), "Conectado por 3G", Toast.LENGTH_LONG).show();
             return true;
             //Si no esta por 3G comprovamos si está conectado o conectandose al wifi...
         } else if (wifi == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTING) {
             ///////////////
             //El movil está conectado por WIFI
             //En este ejemplo mostraríamos mensaje por pantalla
-            //Toast.makeText(getApplicationContext(), "Conectado por WIFI", Toast.LENGTH_LONG).show();
             return true;
         }else{
-            //Toast.makeText(getApplicationContext(), "No hay conexión", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No hay conexión", Toast.LENGTH_LONG).show();
             return false;
         }
     }
@@ -176,39 +207,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             for(int i=0; i<jsonArray.length(); i++){
 
                 try {
+
                     JSONObject objeto = jsonArray.getJSONObject(i);
-///////////////////////////Modo Corto///////////////////////////////////////////////////////////////////
+
                     String json = objeto.toString();
                     Gson gson = new Gson();
                     Teams team = gson.fromJson(json, Teams.class);
-
-////////////////////////////Modo Largo//////////////////////////////////////////////////////////////////
-//                    Teams team = new Teams(
-//                            objeto.getString("id"),
-//                            objeto.getString("name"),
-//                            objeto.getInt("groupCode"),
-//                            objeto.getString("image")
-//                            );
-//
-//                    JSONObject objectPlayer = objeto.getJSONObject("players");
-//                    JSONArray arrayPlayer = objectPlayer.getJSONArray("list");
-//                    ArrayList<Player> listPlayer = new ArrayList<Player>();
-//
-//                    for(int j = 0; j < arrayPlayer.length(); ++j)
-//                    {
-//                        JSONObject object = arrayPlayer.getJSONObject(j);
-//
-//                        Player player = new Player(
-//                                object.getInt("index"),
-//                                object.getString("name"),
-//                                object.getInt("dorsal"),
-//                                object.getInt("age"),
-//                                object.getString("position"),
-//                                object.getString("info"));
-//                        listPlayer.add(player);
-//                    }
-//
-//                    team.setPlayers(listPlayer);
 
                     posts.add(team);
 
@@ -247,13 +251,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        //Log.d("destroy", "destroy");
 
-        //gateway.getQueue().getCache().clear();
-    }
 
 
 }
