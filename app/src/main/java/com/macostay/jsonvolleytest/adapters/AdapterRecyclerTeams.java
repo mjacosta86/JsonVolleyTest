@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.macostay.jsonvolleytest.JsonVolleyTestSingleton;
 import com.macostay.jsonvolleytest.R;
 import com.macostay.jsonvolleytest.models.Teams;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -32,8 +35,8 @@ public class AdapterRecyclerTeams extends RecyclerView.Adapter<AdapterRecyclerTe
 
         //@InjectView(R.id.LblTitulo)
         TextView tvName;
-        NetworkImageView ivFoto;
-        //ImageView ivFoto;
+        //NetworkImageView ivFoto;
+        ImageView ivFoto;
         Context context;
 
 
@@ -41,8 +44,8 @@ public class AdapterRecyclerTeams extends RecyclerView.Adapter<AdapterRecyclerTe
             super(itemView);
             //ButterKnife.inject(this, itemView);
             tvName = (TextView)itemView.findViewById(R.id.tvName);
-            ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
-            //ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
+            //ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
+            ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
             context = c;
 
         }
@@ -51,69 +54,36 @@ public class AdapterRecyclerTeams extends RecyclerView.Adapter<AdapterRecyclerTe
             super(itemView);
             //ButterKnife.inject(this, itemView);
             tvName = (TextView)itemView.findViewById(R.id.tvName);
-            ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
-            //ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
+            //ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
+            ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
 
         }
 
         public void bindTitular(Teams t) {
             tvName.setText(t.getName());
 
-            try {
-                // Petición el image loader
-                ImageLoader imageLoader = JsonVolleyTestSingleton.getInstance(context).getImageLoader();
-                // Petición
-                Log.i(TAG,t.getImage());
-                if((t.getImage()==null)||(t.getImage().isEmpty())) {
-                    ivFoto.setImageResource(R.mipmap.ic_launcher);
-                }
-                else{
-                    ivFoto.setImageUrl(t.getImage(), imageLoader);
-                }
-            }catch (Exception e){
-
-            }
-
-
-            //cargamos la imagen con picasso
-            /*if((p.getImage().compareTo("")==0)||(p.getImage().compareTo(null)==0)){
-                Picasso.with(ivFoto.getContext()).load(R.mipmap.ic_launcher);
-            }
-            else {
-            Picasso.with(ivFoto.getContext()).load(p.getImage()).into(ivFoto);
-            }*/
-
-
-        }
-//        public void bindTitular(Person p) {
-//            tvName.setText(p.getName());
-//
 //            try {
 //                // Petición el image loader
 //                ImageLoader imageLoader = JsonVolleyTestSingleton.getInstance(context).getImageLoader();
 //                // Petición
-//                Log.i(TAG,p.getImage());
-//                if((p.getImage()==null)||(p.getImage().isEmpty())) {
+//                Log.i(TAG,t.getImage());
+//                if((t.getImage()==null)||(t.getImage().isEmpty())) {
 //                    ivFoto.setImageResource(R.mipmap.ic_launcher);
 //                }
 //                else{
-//                    ivFoto.setImageUrl(p.getImage(), imageLoader);
+//                    ivFoto.setImageUrl(t.getImage(), imageLoader);
 //                }
 //            }catch (Exception e){
 //
 //            }
-//
-//
-//            //cargamos la imagen con picasso
-//            /*if((p.getImage().compareTo("")==0)||(p.getImage().compareTo(null)==0)){
-//                Picasso.with(ivFoto.getContext()).load(R.mipmap.ic_launcher);
-//            }
-//            else {
-//            Picasso.with(ivFoto.getContext()).load(p.getImage()).into(ivFoto);
-//            }*/
-//
-//
-//        }
+
+
+            //cargamos la imagen con picasso
+            Picasso.with(ivFoto.getContext()).load(t.getImage()).error(R.mipmap.ic_launcher).into(ivFoto);
+
+
+        }
+
     }
 
     public AdapterRecyclerTeams(ArrayList<Teams> datos) {
@@ -123,7 +93,7 @@ public class AdapterRecyclerTeams extends RecyclerView.Adapter<AdapterRecyclerTe
     @Override
     public TeamsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.person, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.team, viewGroup, false);
 
         itemView.setOnClickListener(this);
 

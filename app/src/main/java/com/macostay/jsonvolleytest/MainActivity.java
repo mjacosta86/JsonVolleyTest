@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     private static final String URL = "http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2";
+    //test con error en una imagen http://www.json-generator.com/api/json/get/bTAdMlAMpu?indent=2
+    // bueno http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2
     ArrayList<Teams> items;
     TeamList list;
 
