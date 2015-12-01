@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.macostay.jsonvolleytest.R;
 import com.macostay.jsonvolleytest.models.Teams;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +37,8 @@ public class FragmentPlaceholder extends Fragment {
     //Controles
     @Bind(R.id.sectionLabel)
     TextView sectionLabel;
+    @Bind(R.id.ivEscudo)
+    ImageView ivEscudo;
 
 
     public static FragmentPlaceholder newInstance(Teams teams) {
@@ -61,11 +65,20 @@ public class FragmentPlaceholder extends Fragment {
         Log.i(TAG, "Method onCreateView");
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, rootView);
-//        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 
         sectionLabel.setText("Name: "+ teams.getName()+"\n"+
                         "GroupCode: "+ teams.getGroupCode()+"\n"+
                         "Image: "+ teams.getImage());
+
+        String bigImage = teams.getImage();
+
+        if(teams.getImage().contains("small")){
+            bigImage = teams.getImage().replace("small","big");
+            Log.i("Big Image", bigImage);
+        }
+
+//        Picasso.with(inflater.getContext()).load(bigImage).error(R.mipmap.ic_launcher).fit().transform(new RoundedTransformation()).into(ivEscudo);
+        Picasso.with(inflater.getContext()).load(bigImage).error(R.mipmap.ic_launcher).into(ivEscudo);
         return rootView;
     }
 

@@ -7,13 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.macostay.jsonvolleytest.JsonVolleyTestSingleton;
 import com.macostay.jsonvolleytest.R;
 import com.macostay.jsonvolleytest.models.Teams;
-
 import java.util.ArrayList;
 
 /**

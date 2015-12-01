@@ -24,8 +24,6 @@ import butterknife.ButterKnife;
 public class FragmentViewPager extends Fragment{
 
     TeamList list;
-//    ViewPager vpPager;
-//    TabLayout tabLayout;
     private AdapterSectionsPager mSectionsPagerAdapter;
     private static final String TAG = "FragmentViewPager";
 
