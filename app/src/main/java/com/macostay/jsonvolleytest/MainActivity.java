@@ -26,16 +26,14 @@ import com.macostay.jsonvolleytest.fragments.FragmentListTest;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
 import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
-import com.macostay.jsonvolleytest.models.Player;
-import com.macostay.jsonvolleytest.models.PlayerList;
+import com.macostay.jsonvolleytest.models.Category;
+import com.macostay.jsonvolleytest.models.Liga;
 import com.macostay.jsonvolleytest.models.TeamList;
 import com.macostay.jsonvolleytest.models.Teams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -47,10 +45,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     private static final String URL = "http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2";
+    private static final String URL2 = "http://www.json-generator.com/api/json/get/cfIQeMCJAi?indent=2";
     //test con error en una imagen http://www.json-generator.com/api/json/get/bTAdMlAMpu?indent=2
     // bueno http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2
+    // resultados http://www.json-generator.com/api/json/get/cfIQeMCJAi?indent=2
+    // resultados api http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=categories&key=65f8402127f4aae612732b4cb6089c22&country=es&filter=all"
+    //test http://www.json-generator.com/api/json/get/cjHcMCBNlu?indent=2
     ArrayList<Teams> items;
     TeamList list;
+
 
     //Controles
     @Bind(R.id.toolbar)
@@ -97,7 +100,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                             items = parseJson(response);
                             list = new TeamList(items);
-                            getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentTeamList.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).commit();
+                            getSupportFragmentManager().beginTransaction()
+                              .replace(R.id.flmainContainer, FragmentTeamList.newInstance(list))
+                              .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                              .commit();
                         }
                     },
                     new Response.ErrorListener() {
@@ -115,8 +121,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Toast.makeText(getApplicationContext(), "No hay conexión", Toast.LENGTH_LONG).show();
             finish();
         }
-
-
 
 
     }
@@ -159,7 +163,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentViewPager.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
         } else if (id == R.id.test){
             getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentListTest.newInstance(list)).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack(null).commit();
+        } else if (id == R.id.category){
+
+            requestQueue = Volley.newRequestQueue(this);
+
+            Log.i(TAG,URL2);
+
+            // Nueva petición JSONObject
+            jsArrayRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    URL2,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            parseJson2(response);
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+
+                        }
+                    }
+            );
+
+            JsonVolleyTestSingleton.getInstance(getApplicationContext()).addToRequestQueue(jsArrayRequest);//Añadimos la petición a la cola
+
+
         }
+
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -224,6 +260,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return posts;
     }
+
+    public void parseJson2(JSONObject jsonObject){
+        // Variables locales
+        ArrayList<Liga> ligaList = new ArrayList<>();
+        try {
+            // Obtener el array del objeto
+            Log.i("Dato", jsonObject.getJSONObject("category").getJSONObject("spain").getJSONArray("ligas").get(0).toString());
+            String json = jsonObject.toString();
+            Gson gson = new Gson();
+            Category categorias = gson.fromJson(json, Category.class);
+
+            JSONObject category = jsonObject.getJSONObject("category");
+            JSONObject spain = category.getJSONObject("spain");
+            JSONArray ligas = spain.getJSONArray("ligas");
+
+            for (int i = 0; i < ligas.length(); ++i)
+            {
+                JSONObject item = ligas.getJSONObject(i);//JSONObject arrayElement_0 = jsonArray.getJSONObject(0);
+
+                Liga l = new Liga();
+                l.setName(item.getString("name").toString().trim());
+                Log.i("Name", l.getName());
+                l.setLogo(item.getString("logo").toString().trim());
+
+                //---print out the content of the json feed---
+                ligaList.add(l);
+
+            }
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

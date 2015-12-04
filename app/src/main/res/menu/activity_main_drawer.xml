@@ -16,6 +16,11 @@
             android:icon="@mipmap/ic_dehaze_black_48dp"
             android:title="Test" />
 
+        <item
+            android:id="@+id/category"
+            android:icon="@mipmap/ic_dehaze_black_48dp"
+            android:title="Categorias" />
+
     </group>
 
 
