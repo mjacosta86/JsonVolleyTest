@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by macostay on 04/12/2015.
  */
-public class Liga implements Parcelable {
+public class CategoryLiga implements Parcelable {
     private int group_code;
     private String name;
     private String league_id;
@@ -18,17 +18,17 @@ public class Liga implements Parcelable {
     private int year;
     private String phase;
     private String logo;
-    private Leader leader;
+    private CategoryLeader leader;
     private int playoff;
     private int current_round;
     private String continent;
     private int id;
     private int c_pending;
 
-    public Liga() {
+    public CategoryLiga() {
     }
 
-    public Liga(int group_code, String name, String league_id, String country, String flag, int order, int total_rounds, int total_group, int year, String phase, String logo, Leader leader, int playoff, int current_round, String continent, int id, int c_pending) {
+    public CategoryLiga(int group_code, String name, String league_id, String country, String flag, int order, int total_rounds, int total_group, int year, String phase, String logo, CategoryLeader leader, int playoff, int current_round, String continent, int id, int c_pending) {
         this.group_code = group_code;
         this.name = name;
         this.league_id = league_id;
@@ -136,11 +136,11 @@ public class Liga implements Parcelable {
         this.logo = logo;
     }
 
-    public Leader getLeader() {
+    public CategoryLeader getLeader() {
         return leader;
     }
 
-    public void setLeader(Leader leader) {
+    public void setLeader(CategoryLeader leader) {
         this.leader = leader;
     }
 
@@ -211,7 +211,7 @@ public class Liga implements Parcelable {
         dest.writeInt(this.c_pending);
     }
 
-    protected Liga(Parcel in) {
+    protected CategoryLiga(Parcel in) {
         this.group_code = in.readInt();
         this.name = in.readString();
         this.league_id = in.readString();
@@ -223,7 +223,7 @@ public class Liga implements Parcelable {
         this.year = in.readInt();
         this.phase = in.readString();
         this.logo = in.readString();
-        this.leader = in.readParcelable(Leader.class.getClassLoader());
+        this.leader = in.readParcelable(CategoryLeader.class.getClassLoader());
         this.playoff = in.readInt();
         this.current_round = in.readInt();
         this.continent = in.readString();
@@ -231,13 +231,13 @@ public class Liga implements Parcelable {
         this.c_pending = in.readInt();
     }
 
-    public static final Creator<Liga> CREATOR = new Creator<Liga>() {
-        public Liga createFromParcel(Parcel source) {
-            return new Liga(source);
+    public static final Creator<CategoryLiga> CREATOR = new Creator<CategoryLiga>() {
+        public CategoryLiga createFromParcel(Parcel source) {
+            return new CategoryLiga(source);
         }
 
-        public Liga[] newArray(int size) {
-            return new Liga[size];
+        public CategoryLiga[] newArray(int size) {
+            return new CategoryLiga[size];
         }
     };
 }

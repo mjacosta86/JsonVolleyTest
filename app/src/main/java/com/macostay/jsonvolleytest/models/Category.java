@@ -8,20 +8,20 @@ import android.os.Parcelable;
  */
 public class Category implements Parcelable {
 
-    private Spain spain;
+    private CategorySpain spain;
 
     public Category() {
     }
 
-    public Category(Spain spain) {
+    public Category(CategorySpain spain) {
         this.spain = spain;
     }
 
-    public Spain getSpain() {
+    public CategorySpain getSpain() {
         return spain;
     }
 
-    public void setSpain(Spain spain) {
+    public void setSpain(CategorySpain spain) {
         this.spain = spain;
     }
 
@@ -37,7 +37,7 @@ public class Category implements Parcelable {
     }
 
     protected Category(Parcel in) {
-        this.spain = in.readParcelable(Spain.class.getClassLoader());
+        this.spain = in.readParcelable(CategorySpain.class.getClassLoader());
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {

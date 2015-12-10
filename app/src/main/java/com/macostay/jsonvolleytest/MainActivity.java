@@ -22,12 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.macostay.jsonvolleytest.fragments.FragmentLeagueList;
 import com.macostay.jsonvolleytest.fragments.FragmentListTest;
 import com.macostay.jsonvolleytest.fragments.FragmentLoading;
 import com.macostay.jsonvolleytest.fragments.FragmentTeamList;
 import com.macostay.jsonvolleytest.fragments.FragmentViewPager;
 import com.macostay.jsonvolleytest.models.Category;
-import com.macostay.jsonvolleytest.models.Liga;
+import com.macostay.jsonvolleytest.models.CategoryLiga;
+import com.macostay.jsonvolleytest.models.CategoryLigas;
 import com.macostay.jsonvolleytest.models.TeamList;
 import com.macostay.jsonvolleytest.models.Teams;
 import org.json.JSONArray;
@@ -45,14 +47,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     private static final String URL = "http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2";
-    private static final String URL2 = "http://www.json-generator.com/api/json/get/cfIQeMCJAi?indent=2";
+    private static final String URL2 = "http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=categories&key=65f8402127f4aae612732b4cb6089c22&country=es&filter=all";
     //test con error en una imagen http://www.json-generator.com/api/json/get/bTAdMlAMpu?indent=2
     // bueno http://www.json-generator.com/api/json/get/ckEMqcXNea?indent=2
-    // resultados http://www.json-generator.com/api/json/get/cfIQeMCJAi?indent=2
-    // resultados api http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=categories&key=65f8402127f4aae612732b4cb6089c22&country=es&filter=all"
+    // resultados ligas http://www.json-generator.com/api/json/get/cfIQeMCJAi?indent=2
+    // resultados api http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=categories&key=60888a5f28e66b62d6f29d7961be9ae8&country=es&filter=all"
     //test http://www.json-generator.com/api/json/get/cjHcMCBNlu?indent=2
+    //clave gratuita en vigor 60888a5f28e66b62d6f29d7961be9ae8
+    //clave caducada 65f8402127f4aae612732b4cb6089c22
     ArrayList<Teams> items;
     TeamList list;
+    CategoryLigas ligas;
 
 
     //Controles
@@ -178,14 +183,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            parseJson2(response);
+                            Log.i(TAG,"Entro en el onResponse");
+                            ligas = new CategoryLigas();
+                            ligas = parseJson2(response);
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.flmainContainer, FragmentLeagueList.newInstance(ligas))
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                                    .addToBackStack("FragmentLeagueList")
+                                    .commit();
 
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+                            Log.e(TAG, "Error Respuesta en JSON: " + error.getMessage());
 
                         }
                     }
@@ -261,15 +273,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return posts;
     }
 
-    public void parseJson2(JSONObject jsonObject){
+    public CategoryLigas parseJson2(JSONObject jsonObject){
         // Variables locales
-        ArrayList<Liga> ligaList = new ArrayList<>();
+        Log.i(TAG,"Entro en el ParseJson2");
+        ArrayList<CategoryLiga> ligaList = new ArrayList<>();
+        CategoryLigas listLigas = new CategoryLigas();
         try {
             // Obtener el array del objeto
             Log.i("Dato", jsonObject.getJSONObject("category").getJSONObject("spain").getJSONArray("ligas").get(0).toString());
             String json = jsonObject.toString();
             Gson gson = new Gson();
             Category categorias = gson.fromJson(json, Category.class);
+
+
+
+
 
             JSONObject category = jsonObject.getJSONObject("category");
             JSONObject spain = category.getJSONObject("spain");
@@ -279,9 +297,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 JSONObject item = ligas.getJSONObject(i);//JSONObject arrayElement_0 = jsonArray.getJSONObject(0);
 
-                Liga l = new Liga();
+                CategoryLiga l = new CategoryLiga();
                 l.setName(item.getString("name").toString().trim());
+                l.setId(item.getInt("id"));
                 Log.i("Name", l.getName());
+                Log.i("ID", l.getId()+"");
                 l.setLogo(item.getString("logo").toString().trim());
 
                 //---print out the content of the json feed---
@@ -295,8 +315,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             e.printStackTrace();
         }
 
-
-
+        listLigas.setLigas(ligaList);
+        return listLigas;
     }
 
 
