@@ -29,20 +29,20 @@ public class AdapterRecyclerLeagues extends RecyclerView.Adapter<AdapterRecycler
     public static class LeaguesViewHolder extends RecyclerView.ViewHolder {
 
         //@InjectView(R.id.LblTitulo)
-        TextView tvNameLiga;
+        TextView tvName;
         //NetworkImageView ivFoto;
 
 
-        ImageView ivFotoLiga;
+        ImageView ivFoto;
         Context context;
 
 
         public LeaguesViewHolder(View itemView, Context c) {
             super(itemView);
             //ButterKnife.inject(this, itemView);
-            tvNameLiga = (TextView)itemView.findViewById(R.id.tvNameLiga);
+            tvName = (TextView)itemView.findViewById(R.id.tvName);
             //ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
-            ivFotoLiga = (ImageView)itemView.findViewById(R.id.ivFotoLiga);
+            ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
             context = c;
 
         }
@@ -50,14 +50,14 @@ public class AdapterRecyclerLeagues extends RecyclerView.Adapter<AdapterRecycler
         public LeaguesViewHolder(View itemView) {
             super(itemView);
             //ButterKnife.inject(this, itemView);
-            tvNameLiga = (TextView)itemView.findViewById(R.id.tvNameLiga);
+            tvName = (TextView)itemView.findViewById(R.id.tvName);
             //ivFoto = (NetworkImageView)itemView.findViewById(R.id.ivFoto);
-            ivFotoLiga = (ImageView)itemView.findViewById(R.id.ivFotoLiga);
+            ivFoto = (ImageView)itemView.findViewById(R.id.ivFoto);
 
         }
 
         public void bindTitular(CategoryLiga l) {
-            tvNameLiga.setText(l.getName());
+            tvName.setText(l.getName());
 
 //            try {
 //                // Petición el image loader
@@ -76,7 +76,7 @@ public class AdapterRecyclerLeagues extends RecyclerView.Adapter<AdapterRecycler
 
 
             //cargamos la imagen con picasso
-            Picasso.with(ivFotoLiga.getContext()).load(l.getLogo()).error(R.mipmap.ic_launcher).into(ivFotoLiga);
+            Picasso.with(ivFoto.getContext()).load(l.getLogo()).error(R.mipmap.ic_launcher).into(ivFoto);
 
 
         }
@@ -90,7 +90,7 @@ public class AdapterRecyclerLeagues extends RecyclerView.Adapter<AdapterRecycler
     @Override
     public LeaguesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.liga, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.photo_list, viewGroup, false);
 
         itemView.setOnClickListener(this);
 

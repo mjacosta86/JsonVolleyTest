@@ -103,6 +103,8 @@ public class FragmentLeagueList extends Fragment {
             public void onClick(View v) {
 
                 String url = "http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=teams&key=65f8402127f4aae612732b4cb6089c22&league="+ligas.getLigas().get(rvLigas.getChildAdapterPosition(v)).getId()+"&year=2016";
+                int position = rvLigas.getChildAdapterPosition(v);
+                final String toolbar = ligas.getLigas().get(position).getName().toString();
                 //http://www.resultados-futbol.com/scripts/api/api.php?tz=Europe/Madrid&format=json&req=teams&key=65f8402127f4aae612732b4cb6089c22&league=1&year=2015
                 //getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flmainContainer, FragmentDetails.newInstance(items.get(rvList.getChildAdapterPosition(v)))).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE).addToBackStack("DetailsFragment").commit();
                 requestQueue = Volley.newRequestQueue(getActivity());
@@ -122,7 +124,7 @@ public class FragmentLeagueList extends Fragment {
                                 arrayListTeams = parseJson(response);
                                 list.setTeam(arrayListTeams);
                                 getActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.flmainContainer, FragmentLeague.newInstance(list))
+                                        .replace(R.id.flmainContainer, FragmentLeague.newInstance(list, toolbar))
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                                         .addToBackStack("FragmentLeagueList")
                                         .commit();

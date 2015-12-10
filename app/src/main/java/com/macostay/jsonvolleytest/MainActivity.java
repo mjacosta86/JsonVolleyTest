@@ -285,10 +285,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Gson gson = new Gson();
             Category categorias = gson.fromJson(json, Category.class);
 
-
-
-
-
             JSONObject category = jsonObject.getJSONObject("category");
             JSONObject spain = category.getJSONObject("spain");
             JSONArray ligas = spain.getJSONArray("ligas");

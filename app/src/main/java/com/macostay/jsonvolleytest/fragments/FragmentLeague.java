@@ -50,6 +50,7 @@ public class FragmentLeague extends Fragment {
 
     private static final String TAG = "FragmentLeague";
     LeagueTeamList list;
+    String toolbar;
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
     TeamDetails teamDetails = new TeamDetails();
@@ -60,10 +61,11 @@ public class FragmentLeague extends Fragment {
     RecyclerView rvLiga;
 
 
-    public static FragmentLeague newInstance(LeagueTeamList list) {
+    public static FragmentLeague newInstance(LeagueTeamList list, String toolbar) {
 
         Bundle args = new Bundle();
         args.putParcelable("list", list);
+        args.putString("toolbar", toolbar);
         FragmentLeague fragment = new FragmentLeague();
         fragment.setArguments(args);
         return fragment;
@@ -74,6 +76,7 @@ public class FragmentLeague extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_league, container, false);
         ButterKnife.bind(this, rootView);
         list = getArguments().getParcelable("list");
+        toolbar = getArguments().getString("toolbar");
 
 //        if(rootView != null) {
 //            rvList = (RecyclerView) rootView.findViewById(R.id.rvList);
@@ -85,7 +88,7 @@ public class FragmentLeague extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getActivity().setTitle("Liga");
+        getActivity().setTitle(toolbar);
 
         final ArrayList<LeagueTeam> items = list.getTeam();
 

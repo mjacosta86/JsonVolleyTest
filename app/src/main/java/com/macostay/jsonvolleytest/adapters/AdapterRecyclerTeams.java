@@ -93,7 +93,7 @@ public class AdapterRecyclerTeams extends RecyclerView.Adapter<AdapterRecyclerTe
     @Override
     public TeamsViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.team, viewGroup, false);
+        View itemView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.photo_list, viewGroup, false);
 
         itemView.setOnClickListener(this);
 
