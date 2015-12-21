@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.macostay.jsonvolleytest.models.PlayerDetails;
 import com.macostay.jsonvolleytest.models.PlayerTeam;
 import com.macostay.jsonvolleytest.models.PlayerTeamList;
 import com.macostay.jsonvolleytest.models.TeamDetails;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,10 +52,58 @@ public class FragmentPlayerDetails extends Fragment {
     //Controles
     @Bind(R.id.tvIdPlayer)
     TextView tvIdPlayer;
+
+    @Bind(R.id.tvNamePlayer)
+    TextView tvNamePlayer;
+
     @Bind(R.id.tvNickPlayer)
     TextView tvNickPlayer;
-    @Bind(R.id.tvCountryPlayer)
-    TextView tvCountryPlayer;
+
+    @Bind(R.id.tvLastName)
+    TextView tvLastName;
+
+    @Bind(R.id.tvRole)
+    TextView tvRole;
+
+    @Bind(R.id.tvCountry)
+    TextView tvCountry;
+
+    @Bind(R.id.tvBirthDate)
+    TextView tvBirthDate;
+
+    @Bind(R.id.tvAgePlayer)
+    TextView tvAgePlayer;
+
+    @Bind(R.id.tvCountryCodePlayer)
+    TextView tvCountryCodePlayer;
+
+    @Bind(R.id.tvWeightPlayer)
+    TextView tvWeightPlayer;
+
+    @Bind(R.id.tvHeightPlayer)
+    TextView tvHeightPlayer;
+
+    @Bind(R.id.tvTwitterPlayer)
+    TextView tvTwitterPlayer;
+
+    @Bind(R.id.tvWebsitePlayer)
+    TextView tvWebsitePlayer;
+
+    @Bind(R.id.tvSquadPlayer)
+    TextView tvSquadPlayer;
+
+    @Bind(R.id.ivAvatarPlayer)
+    ImageView ivAvatarPlayer;
+
+    @Bind(R.id.ivAvatarCountryPlayer)
+    ImageView ivAvatarCountryPlayer;
+
+    @Bind(R.id.ivAvatarTeamPlayer)
+    ImageView ivAvatarTeamPlayer;
+
+    @Bind(R.id.tvInfoPlayer)
+    TextView tvInfoPlayer;
+
 
     public static FragmentPlayerDetails newInstance(PlayerDetails playerDetails) {
 
@@ -90,12 +140,31 @@ public class FragmentPlayerDetails extends Fragment {
 
         getActivity().setTitle(playerDetails.getNick());
 
-        tvIdPlayer.setText(playerDetails.getPlayer_id());
-        tvNickPlayer.setText(playerDetails.getNick());
-        tvCountryPlayer.setText(playerDetails.getCountry());
+        //cargamos las imagenes
+        Picasso.with(ivAvatarPlayer.getContext()).load(playerDetails.getPlayer_avatar()).error(R.mipmap.ic_launcher).into(ivAvatarPlayer);
+        Picasso.with(ivAvatarCountryPlayer.getContext()).load(playerDetails.getCountry_flag()).error(R.mipmap.ic_launcher).into(ivAvatarCountryPlayer);
+        Picasso.with(ivAvatarTeamPlayer.getContext()).load(playerDetails.getTeam_shield()).error(R.mipmap.ic_launcher).into(ivAvatarTeamPlayer);
 
-        int goles = playerDetails.getStadisticsResume().getStadistics_resume().get(0).getGoals();
-        Log.i("Goles", goles+"");
+
+        tvIdPlayer.setText("ID: " + playerDetails.getPlayer_id());
+        tvNickPlayer.setText("Nick: "+playerDetails.getNick());
+        tvCountry.setText("Pais: "+playerDetails.getCountry());
+        tvNamePlayer.setText("Nombre: "+playerDetails.getName());
+        tvLastName.setText("Apellido: "+playerDetails.getLast_name());
+        tvBirthDate.setText("Fecha Nacimiento: "+playerDetails.getBirthdate());
+        tvRole.setText("Rol: "+playerDetails.getRole());
+        tvAgePlayer.setText("Edad: "+playerDetails.getAge());
+        tvCountryCodePlayer.setText("Codigo Pais: "+playerDetails.getCountryCode());
+        tvWeightPlayer.setText("Peso: "+playerDetails.getWeight());
+        tvHeightPlayer.setText("Altura: "+playerDetails.getHeight());
+        tvTwitterPlayer.setText("Twitter: "+playerDetails.getTwitter());
+        tvSquadPlayer.setText("Numero: "+playerDetails.getSquad_number());
+        tvWebsitePlayer.setText("Web: "+playerDetails.getWebsite());
+
+        tvInfoPlayer.setText(playerDetails.getPlayer_id());
+
+//        int goles = playerDetails.getStadisticsResume().getStadistics_resume().get(0).getGoals();
+//        Log.i("Goles", goles+"");
 
 
     }

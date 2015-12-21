@@ -19,6 +19,103 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="name_Player"
+        android:id="@+id/tvNamePlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="last_Name"
+        android:id="@+id/tvLastName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role"
+        android:id="@+id/tvRole" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="country_Player"
-        android:id="@+id/tvCountryPlayer" />
+        android:id="@+id/tvCountry" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="birthdate_Player"
+        android:id="@+id/tvBirthDate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="age_Player"
+        android:id="@+id/tvAgePlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="countryCode_Player"
+        android:id="@+id/tvCountryCodePlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="weight Player"
+        android:id="@+id/tvWeightPlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="height Player"
+        android:id="@+id/tvHeightPlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="twitter_Player"
+        android:id="@+id/tvTwitterPlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="website_Player"
+        android:id="@+id/tvWebsitePlayer" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="squad_Player"
+        android:id="@+id/tvSquadPlayer" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="avatar_Player"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/ivAvatarPlayer"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="avatarCountry_Player"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/ivAvatarCountryPlayer"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="avatarTeam_Player"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/ivAvatarTeamPlayer"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="info_Player"
+        android:id="@+id/tvInfoPlayer" />
+
 </LinearLayout>
