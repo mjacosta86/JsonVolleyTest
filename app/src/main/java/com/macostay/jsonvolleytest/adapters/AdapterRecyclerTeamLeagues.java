@@ -60,7 +60,7 @@ public class AdapterRecyclerTeamLeagues extends RecyclerView.Adapter<AdapterRecy
         }
 
         public void bindTitular(LeagueTeam l) {
-            tvName.setText(l.getFullName());
+            tvName.setText(l.getNameShow());
 
 //            try {
 //                // Petición el image loader

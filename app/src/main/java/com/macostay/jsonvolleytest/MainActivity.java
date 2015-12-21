@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //test http://www.json-generator.com/api/json/get/cjHcMCBNlu?indent=2
     //clave gratuita en vigor 60888a5f28e66b62d6f29d7961be9ae8
     //clave caducada 65f8402127f4aae612732b4cb6089c22
+
     ArrayList<Teams> items;
     TeamList list;
     CategoryLigas ligas;
@@ -95,20 +96,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.i(TAG,URL);
 
             // Nueva petición JSONObject
+//            jsArrayRequest = new JsonObjectRequest(
+//                    Request.Method.GET,
+//                    URL,
+//                    null,
+//                    new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//
+//                            items = parseJson(response);
+//                            list = new TeamList(items);
+//                            getSupportFragmentManager().beginTransaction()
+//                                    .replace(R.id.flmainContainer, FragmentTeamList.newInstance(list))
+//                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+//                                    .commit();
+//                        }
+//                    },
+//                    new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                            Log.d(TAG, "Error Respuesta en JSON: " + error.getMessage());
+//
+//                        }
+//                    }
+//            );
+
+            // Nueva petición JSONObject
             jsArrayRequest = new JsonObjectRequest(
                     Request.Method.GET,
-                    URL,
+                    URL2,
                     null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            items = parseJson(response);
-                            list = new TeamList(items);
+                            ligas = new CategoryLigas();
+                            ligas = parseJson2(response);
                             getSupportFragmentManager().beginTransaction()
-                              .replace(R.id.flmainContainer, FragmentTeamList.newInstance(list))
-                              .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                              .commit();
+                                    .replace(R.id.flmainContainer, FragmentLeagueList.newInstance(ligas))
+                                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                                    .commit();
                         }
                     },
                     new Response.ErrorListener() {

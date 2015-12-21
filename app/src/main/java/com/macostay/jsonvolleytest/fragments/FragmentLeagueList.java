@@ -49,7 +49,6 @@ public class FragmentLeagueList extends Fragment {
 
     private static final String TAG = "FragmentLeagueList";
     CategoryLigas ligas;
-    ArrayList<LeagueTeam> arrayListTeams = new ArrayList<>();
     LeagueTeamList list = new LeagueTeamList();
     private RequestQueue requestQueue;
     JsonObjectRequest jsArrayRequest;
@@ -121,8 +120,7 @@ public class FragmentLeagueList extends Fragment {
                             public void onResponse(JSONObject response) {
 
                                 Log.i(TAG,"Entro en el onResponse");
-                                arrayListTeams = parseJson(response);
-                                list.setTeam(arrayListTeams);
+                                list = parseJson(response);
                                 getActivity().getSupportFragmentManager().beginTransaction()
                                         .replace(R.id.flmainContainer, FragmentLeague.newInstance(list, toolbar))
                                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
@@ -152,16 +150,17 @@ public class FragmentLeagueList extends Fragment {
         });
 
     }
-    public ArrayList<LeagueTeam> parseJson(JSONObject jsonObject){
+    public LeagueTeamList parseJson(JSONObject jsonObject){
         // Variables locales
         Log.i(TAG, "Entro en el ParseJson2");
+        LeagueTeamList list = new LeagueTeamList();
         ArrayList<LeagueTeam> ligaList = new ArrayList<>();
         try {
             // Obtener el array del objeto
             Log.i("Dato", jsonObject.getJSONArray("team").get(0).toString());
-            String json = jsonObject.toString();
-            Gson gson = new Gson();
-            LeagueTeamList list = gson.fromJson(json, LeagueTeamList.class);
+            //String json = jsonObject.toString();
+            //Gson gson = new Gson();
+            //LeagueTeamList list = gson.fromJson(json, LeagueTeamList.class);
 
             JSONArray ligas = jsonObject.getJSONArray("team");
 
@@ -169,18 +168,23 @@ public class FragmentLeagueList extends Fragment {
             {
                 JSONObject item = ligas.getJSONObject(i);//JSONObject arrayElement_0 = jsonArray.getJSONObject(0);
 
+                String json2 = item.toString();
+                Gson gson2 = new Gson();
                 LeagueTeam l = new LeagueTeam();
-                l.setFullName(item.getString("fullName").toString().trim());
-                l.setShield(item.getString("shield").toString().trim());
-                l.setId(item.getString("id").toString().trim());
-                Log.i("Name", l.getFullName());
-                Log.i("Escudo", l.getShield());
-                Log.i("ID", l.getId());
+                l = gson2.fromJson(json2, LeagueTeam.class);
+//                l.setFullName(item.getString("fullName").toString().trim());
+//                l.setShield(item.getString("shield").toString().trim());
+//                l.setId(item.getString("id").toString().trim());
+//                Log.i("Name", l.getFullName());
+//                Log.i("Escudo", l.getShield());
+//                Log.i("ID", l.getId());
 
                 //---print out the content of the json feed---
                 ligaList.add(l);
 
             }
+
+            list.setTeam(ligaList);
 
 
 
@@ -189,7 +193,7 @@ public class FragmentLeagueList extends Fragment {
         }
 
 
-        return ligaList;
+        return list;
     }
     @Override
     public void onAttach(Context context) {

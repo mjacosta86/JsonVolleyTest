@@ -75,12 +75,15 @@ public class TeamDetails implements Parcelable {
     private String Region;
     private String shield;
     private String img_stadium;
+    private int position;
+    private int t_squad;
+    private boolean hasNews;
     private PlayerTeamList squad;
 
     public TeamDetails() {
     }
 
-    public TeamDetails(String id, String nameShow, String basealias, String countryCode, String location, String basename, String stadium, String short_name, String managerNow, String seats, String website, String yearFoundation, String city, String address, String phone, String fax, String chairman, String fullName, String yearlyBudget, String info, String fans, String typefield, String ctype, String yearBuilt, String size, String historical, String comments, String color1, String kit_home, String color2, String kit_away, String kit_third, String twitter, String twitter_coach, String twitter_president, String twitter_b, String qod, String pod, String last_change, String relations, String relatedImg, String basealias_old, String patrocinador, String patrocinador_b, String team_b, String proveedor, String lugar_entrenamiento, String repeat_year, String no_year, String error_date, String fifaId, String main_image, String type_team, String active_relations, String match_played, String match_to_play, String localidad, String geonameid, String hid, String hid_B, String translate, String email, String name, String continent, String region, String shield, String img_stadium, PlayerTeamList squad) {
+    public TeamDetails(String id, String nameShow, String basealias, String countryCode, String location, String basename, String stadium, String short_name, String managerNow, String seats, String website, String yearFoundation, String city, String address, String phone, String fax, String chairman, String fullName, String yearlyBudget, String info, String fans, String typefield, String ctype, String yearBuilt, String size, String historical, String comments, String color1, String kit_home, String color2, String kit_away, String kit_third, String twitter, String twitter_coach, String twitter_president, String twitter_b, String qod, String pod, String last_change, String relations, String relatedImg, String basealias_old, String patrocinador, String patrocinador_b, String team_b, String proveedor, String lugar_entrenamiento, String repeat_year, String no_year, String error_date, String fifaId, String main_image, String type_team, String active_relations, String match_played, String match_to_play, String localidad, String geonameid, String hid, String hid_B, String translate, String email, String name, String continent, String region, String shield, String img_stadium, PlayerTeamList squad, int position, int t_squad, boolean hasNews) {
         this.id = id;
         this.nameShow = nameShow;
         this.basealias = basealias;
@@ -149,6 +152,9 @@ public class TeamDetails implements Parcelable {
         this.shield = shield;
         this.img_stadium = img_stadium;
         this.squad = squad;
+        this.position = position;
+        this.t_squad = t_squad;
+        this.hasNews = hasNews;
     }
 
     public String getId() {
@@ -696,6 +702,30 @@ public class TeamDetails implements Parcelable {
     }
 
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getT_squad() {
+        return t_squad;
+    }
+
+    public void setT_squad(int t_squad) {
+        this.t_squad = t_squad;
+    }
+
+    public boolean isHasNews() {
+        return hasNews;
+    }
+
+    public void setHasNews(boolean hasNews) {
+        this.hasNews = hasNews;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -770,6 +800,9 @@ public class TeamDetails implements Parcelable {
         dest.writeString(this.Region);
         dest.writeString(this.shield);
         dest.writeString(this.img_stadium);
+        dest.writeInt(this.position);
+        dest.writeInt(this.t_squad);
+        dest.writeByte(hasNews ? (byte) 1 : (byte) 0);
         dest.writeParcelable(this.squad, 0);
     }
 
@@ -841,6 +874,9 @@ public class TeamDetails implements Parcelable {
         this.Region = in.readString();
         this.shield = in.readString();
         this.img_stadium = in.readString();
+        this.position = in.readInt();
+        this.t_squad = in.readInt();
+        this.hasNews = in.readByte() != 0;
         this.squad = in.readParcelable(PlayerTeamList.class.getClassLoader());
     }
 
